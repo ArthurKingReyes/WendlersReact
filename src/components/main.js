@@ -8,6 +8,11 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
 // Week percentages
 const week1 = [0.65, 0.75, 0.85];
@@ -26,12 +31,16 @@ class Main extends Component {
         this.setState({max_weight: e.target.value})
     }
 
+    calcWeightAndReps = (week, reps) => {
+        
+    }
+
     render() {
         return (
             <div className="title">
             <br/>
             <h1>Wendler's 531 Assistant</h1> 
-            <Container fixed style={{background: 'red', textAlign: 'center', marginTop:'50px'}}> 
+            <Container fixed style={{textAlign: 'center', marginTop:'50px'}}> 
               <Paper> 
                 <FormControl>
                     {/* Get input, numbers only */}
@@ -52,7 +61,31 @@ class Main extends Component {
                         <FormControlLabel value="deload" control={<Radio />} label="Deload" labelPlacement="bottom"/>
                     </RadioGroup>
                 </FormControl>
+                </Paper>
+                <br/><br/><br/>
 
+                {/* Table */}
+                <Paper>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell></TableCell>
+                            <TableCell align="right">Weight</TableCell>
+                            <TableCell align="right">Reps</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        <TableRow>
+                            <TableCell align="right">Set 1</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell align="right">Set 2</TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell align="right">Set 3</TableCell>
+                        </TableRow>
+                    </TableBody>
+                </Table>
 
               </Paper>             
             </Container>
