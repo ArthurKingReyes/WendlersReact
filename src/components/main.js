@@ -24,15 +24,38 @@ class Main extends Component {
     
     
     state = {
-        max_weight: 0
+        max_weight: 0,
+        rows: [],
+        selectWeek: []
     }
     
     onTextChange = (e) => {
         this.setState({max_weight: e.target.value})
     }
 
+    // setWeek = (weekNum) => {
+    //     this.setState({selectWeek: weekNum})
+    //     console.log("successfully set the week")
+    // }
+
     calcWeightAndReps = (week, reps) => {
-        
+        if(week === week1){
+            console.log("week 1 is true")
+            console.log("reps are: " + reps)
+            // this.setState({selectWeek: week})
+        }
+
+        else if(week === week2){
+            console.log("week 2 is true")
+        }
+
+        else if(week === week3){
+            console.log("week 3 is true")
+        }
+
+        else if(week === deload){
+            console.log("deload is true")
+        }
     }
 
     render() {
@@ -40,8 +63,9 @@ class Main extends Component {
             <div className="title">
             <br/>
             <h1>Wendler's 531 Assistant</h1> 
-            <Container fixed style={{textAlign: 'center', marginTop:'50px'}}> 
+            <Container fixed style={{textAlign: 'center', marginTop:'45px'}}> 
               <Paper> 
+                <br/>
                 <FormControl>
                     {/* Get input, numbers only */}
                     <Input 
@@ -55,14 +79,18 @@ class Main extends Component {
 
                     {/* Radio buttons for week selection */}
                     <RadioGroup row> 
-                        <FormControlLabel value="week1" control={<Radio />} label="Week 1" labelPlacement="bottom" onChange={() => console.log("hello")}/>
-                        <FormControlLabel value="week2" control={<Radio />} label="Week 2" labelPlacement="bottom"/>
-                        <FormControlLabel value="week3" control={<Radio />} label="Week 3" labelPlacement="bottom"/>
-                        <FormControlLabel value="deload" control={<Radio />} label="Deload" labelPlacement="bottom"/>
+                        <FormControlLabel value="week1" control={<Radio />} label="Week 1" labelPlacement="bottom" 
+                            onChange={() => this.calcWeightAndReps(week1, 5)}/>
+                        <FormControlLabel value="week2" control={<Radio />} label="Week 2" labelPlacement="bottom"
+                            onChange={() => this.calcWeightAndReps(week2, 5)}/>
+                        <FormControlLabel value="week3" control={<Radio />} label="Week 3" labelPlacement="bottom"
+                            onChange={() => this.calcWeightAndReps(week3, 5)}/>
+                        <FormControlLabel value="deload" control={<Radio />} label="Deload" labelPlacement="bottom"
+                            onChange={() => this.calcWeightAndReps(deload, 5)}/>
                     </RadioGroup>
                 </FormControl>
                 </Paper>
-                <br/><br/><br/>
+                <br/><br/>
 
                 {/* Table */}
                 <Paper>
