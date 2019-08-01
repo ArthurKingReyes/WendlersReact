@@ -33,6 +33,7 @@ class Main extends Component {
     
     onTextChange = (e) => {
         this.setState({max_weight: e.target.value})
+        this.calcWeightAndReps()
     }
 
     createRow = (setNum, weight, reps) =>{
@@ -50,22 +51,42 @@ class Main extends Component {
                     ]
                 }
             )
-            console.log(this.state.rows)
         }
 
         else if(week === week2){
-            console.log("week 2 is true")
-            console.log("reps are: " + reps)
+            this.setState(
+                {
+                    rows: [
+                        this.createRow('Set 1', week2[0]*this.state.max_weight, wk2reps[0]),
+                        this.createRow('Set 2', week2[1]*this.state.max_weight, wk2reps[1]),
+                        this.createRow('Set 3', week2[2]*this.state.max_weight, wk2reps[2])
+                    ]
+                }
+            )
         }
 
         else if(week === week3){
-            console.log("week 3 is true")
-            console.log("reps are: " + reps)
+            this.setState(
+                {
+                    rows: [
+                        this.createRow('Set 1', week3[0]*this.state.max_weight, wk3reps[0]),
+                        this.createRow('Set 2', week3[1]*this.state.max_weight, wk3reps[1]),
+                        this.createRow('Set 3', week3[2]*this.state.max_weight, wk3reps[2])
+                    ]
+                }
+            )
         }
 
         else if(week === deload){
-            console.log("deload is true")
-            console.log("reps are: " + reps)
+            this.setState(
+                {
+                    rows: [
+                        this.createRow('Set 1', deload[0]*this.state.max_weight, dldreps[0]),
+                        this.createRow('Set 2', deload[1]*this.state.max_weight, dldreps[1]),
+                        this.createRow('Set 3', deload[2]*this.state.max_weight, dldreps[2])
+                    ]
+                }
+            )
         }
     }
 
@@ -109,7 +130,7 @@ class Main extends Component {
                     <TableHead>
                         <TableRow>
                             <TableCell></TableCell>
-                            <TableCell align="right">Weight</TableCell>
+                            <TableCell align="right">Weight (lbs)</TableCell>
                             <TableCell align="right">Reps</TableCell>
                         </TableRow>
                     </TableHead>
