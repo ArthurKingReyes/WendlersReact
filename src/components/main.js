@@ -14,47 +14,58 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-// Week percentages
+// Week percentages and reps
 const week1 = [0.65, 0.75, 0.85];
 const week2 = [0.7, 0.8, 0.9];
 const week3 = [0.75, 0.85, 0.95];
 const deload = [0.4, 0.5, 0.6];
+const wk1reps = [5,5,"5+"];
+const wk2reps = [3,3,"3+"];
+const wk3reps = [5,3,"1+"];
+const dldreps = [5,5,5];
 
 class Main extends Component {
     
-    
     state = {
         max_weight: 0,
-        rows: [],
-        selectWeek: []
+        rows: []
     }
     
     onTextChange = (e) => {
         this.setState({max_weight: e.target.value})
     }
 
-    // setWeek = (weekNum) => {
-    //     this.setState({selectWeek: weekNum})
-    //     console.log("successfully set the week")
-    // }
+    createRow = (setNum, weight, reps) =>{
+        return {setNum, weight, reps}
+    }
 
     calcWeightAndReps = (week, reps) => {
         if(week === week1){
-            console.log("week 1 is true")
-            console.log("reps are: " + reps)
-            // this.setState({selectWeek: week})
+            this.setState(
+                {
+                    rows: [
+                        this.createRow('Set 1', week1[0]*this.state.max_weight, wk1reps[0]),
+                        this.createRow('Set 2', week1[1]*this.state.max_weight, wk1reps[1]),
+                        this.createRow('Set 3', week1[2]*this.state.max_weight, wk1reps[2])
+                    ]
+                }
+            )
+            console.log(this.state.rows)
         }
 
         else if(week === week2){
             console.log("week 2 is true")
+            console.log("reps are: " + reps)
         }
 
         else if(week === week3){
             console.log("week 3 is true")
+            console.log("reps are: " + reps)
         }
 
         else if(week === deload){
             console.log("deload is true")
+            console.log("reps are: " + reps)
         }
     }
 
@@ -80,13 +91,13 @@ class Main extends Component {
                     {/* Radio buttons for week selection */}
                     <RadioGroup row> 
                         <FormControlLabel value="week1" control={<Radio />} label="Week 1" labelPlacement="bottom" 
-                            onChange={() => this.calcWeightAndReps(week1, 5)}/>
+                            onChange={() => this.calcWeightAndReps(week1, wk1reps)}/>
                         <FormControlLabel value="week2" control={<Radio />} label="Week 2" labelPlacement="bottom"
-                            onChange={() => this.calcWeightAndReps(week2, 5)}/>
+                            onChange={() => this.calcWeightAndReps(week2, wk2reps)}/>
                         <FormControlLabel value="week3" control={<Radio />} label="Week 3" labelPlacement="bottom"
-                            onChange={() => this.calcWeightAndReps(week3, 5)}/>
+                            onChange={() => this.calcWeightAndReps(week3, wk3reps)}/>
                         <FormControlLabel value="deload" control={<Radio />} label="Deload" labelPlacement="bottom"
-                            onChange={() => this.calcWeightAndReps(deload, 5)}/>
+                            onChange={() => this.calcWeightAndReps(deload, dldreps)}/>
                     </RadioGroup>
                 </FormControl>
                 </Paper>
@@ -103,15 +114,15 @@ class Main extends Component {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        <TableRow>
-                            <TableCell align="right">Set 1</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell align="right">Set 2</TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell align="right">Set 3</TableCell>
-                        </TableRow>
+                        {this.state.rows.map(row => (
+                            <TableRow key={row.setNum}>
+                                <TableCell  component="th" scope="row">
+                                    {row.setNum}
+                                </TableCell>
+                                <TableCell align="right">{row.weight}</TableCell>
+                                <TableCell align="right">{row.reps}</TableCell>
+                            </TableRow>
+                        ))}
                     </TableBody>
                 </Table>
 
