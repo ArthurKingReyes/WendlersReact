@@ -28,19 +28,21 @@ class Main extends Component {
     
     state = {
         max_weight: 0,
-        rows: []
+        rows: [],
+        wkval: []
     }
     
     onTextChange = (e) => {
         this.setState({max_weight: e.target.value})
-        this.calcWeightAndReps()
+        this.calcWeightAndReps(this.state.wkval, wk1reps)
+        console.log("inside textchange")
     }
 
     createRow = (setNum, weight, reps) =>{
         return {setNum, weight, reps}
     }
 
-    calcWeightAndReps = (week, reps) => {
+    calcWeightAndReps = (week, reps) => { console.log("inside calcweightandreps weekval is: " + week )
         if(week === week1){
             this.setState(
                 {
@@ -112,7 +114,7 @@ class Main extends Component {
                     {/* Radio buttons for week selection */}
                     <RadioGroup row> 
                         <FormControlLabel value="week1" control={<Radio />} label="Week 1" labelPlacement="bottom" 
-                            onChange={() => this.calcWeightAndReps(week1, wk1reps)}/>
+                            onChange={() => this.calcWeightAndReps(week1, wk1reps) && this.setState({wkval: week1})}/>
                         <FormControlLabel value="week2" control={<Radio />} label="Week 2" labelPlacement="bottom"
                             onChange={() => this.calcWeightAndReps(week2, wk2reps)}/>
                         <FormControlLabel value="week3" control={<Radio />} label="Week 3" labelPlacement="bottom"
